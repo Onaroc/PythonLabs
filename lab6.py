@@ -2,7 +2,7 @@
 """
 Created on Mon Nov  6 12:03:40 2017
 
-@author: jcf1g17
+@author: JFord
 """
 
 
