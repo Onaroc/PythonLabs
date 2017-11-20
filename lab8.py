@@ -5,6 +5,7 @@ Created on Mon Nov 13 12:11:06 2017
 """
 import math
 import matplotlib.pyplot as plt
+import scipy
 
 
 def f(x):
@@ -59,10 +60,37 @@ def my_plot():
     on a graph between -2 and 2 for 1001 points, then
     returns none
     """
-    dataf1 = (create_plot_data(f1, -2, 2, 1001))
-    dataf2 = (create_plot_data(f2, -2, 2, 1001))   
-    plt.plot(dataf1)
-    plt.plot(dataf2)
+    xdataf1 = (create_plot_data(f1, -2, 2, 1001))[0]
+    xdataf2 = (create_plot_data(f2, -2, 2, 1001))[0]
+    ydataf1 = (create_plot_data(f1, -2, 2, 1001))[1]
+    ydataf2 = (create_plot_data(f2, -2, 2, 1001))[1]
+    plt.plot(xdataf1, ydataf1, label='f1')
+    plt.plot(xdataf2, ydataf2, label='f2')
     plt.xlabel('f(x)')
+    plt.legend(loc='upper left')
     plt.show
+    plt.savefig('plot.png')
+    plt.savefig('plot.pdf')
     return None
+
+
+def g(x):
+    return f1(x) - f2(x)
+
+
+def find_cross():
+    """
+    finds and returns an approximation for the root of
+    f1(x) = f2(x) using brents method (from the scipy library)
+    """
+    rootx = scipy.optimize.brentq(g, a=0, b=2)
+    return rootx
+
+
+def reverse_dic(d):
+    """
+    Takes as an input a dictionary d and returns a dictionary r
+    If d has a value v and a key k r has a value k and a key v
+    """
+    k = {v: k for k, v in d.items()}
+    return k
