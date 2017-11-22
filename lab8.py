@@ -5,7 +5,7 @@ Created on Mon Nov 13 12:11:06 2017
 """
 import math
 import matplotlib.pyplot as plt
-import scipy
+from scipy import optimize
 
 
 def f(x):
@@ -35,7 +35,7 @@ def positive_places(f, xs):
     only those elemnts x of xs for which f(x) is
     strictly greater than zero
     """
-    lst = [f(x) for x in xs if (f(x) > 0)]
+    lst = [v for v in xs if (f(v) > 0)]
     return lst
 
 
@@ -54,7 +54,7 @@ def create_plot_data(f, xmin, xmax, n):
     return (xs, ys)
 
 
-def my_plot():
+def myplot():
     """
     Computes and plots f1(x) and f2(x) (using create_plot_data)
     on a graph between -2 and 2 for 1001 points, then
@@ -83,7 +83,7 @@ def find_cross():
     finds and returns an approximation for the root of
     f1(x) = f2(x) using brents method (from the scipy library)
     """
-    rootx = scipy.optimize.brentq(g, a=0, b=2)
+    rootx = optimize.brentq(g, a=0, b=2)
     return rootx
 
 
