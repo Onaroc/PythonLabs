@@ -2,7 +2,7 @@
 """
 Created on Mon Oct 16 12:08:51 2017
 
-@author: JFord
+@author: jcf1g17 (Jake Ford)
 """
 
 def average(a, b):
