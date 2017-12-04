@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 27 12:07:48 2017
-
 @author: jFord
 """
 
@@ -13,6 +12,31 @@ def trapez(f, a, b, n):
         fab.append(f(a + (h * x)))  # Creates a list of x(0) to x(n-1)
     sumt = (h / 2) * (a + b + 2 * sum(fab))
     return sumt
+
+
+def encode(code, msg):
+    """
+    Takes as an inputs a dictionary code and a string msg
+    and applies the mapping of the dictionary to each character
+    in the string and returns the encoded message
+    """
+    a = []
+    for k in msg:
+        if k in code:
+            a.append(code.get(k))
+        else:
+            a.append(k)
+    return ''.join(a)
+
+
+def reverse_dic(d):
+    """
+    Takes as an input a dictionary d and returns a dictionary r
+    If d has a value v and a key k r has a value k and a key v
+    """
+    k = {v: k for k, v in d.items()}
+    return k
+
 
 """Some support functions"""
 
@@ -59,7 +83,6 @@ def check_code_is_reversible(dic):
     in the keys are the same unique set as those in the values, then
     this mapping is bijective (the set of values is then actually a
     permutation of the set of input values) and can be inverted.
-
     If this is not the case, some debug information is printed, and a
     ValueError exception raised.
     """
@@ -90,4 +113,3 @@ secretmessage = \
 # if this file is executed on it's own, check codes given
 if __name__ == "__main__":
     test_codes()
-
