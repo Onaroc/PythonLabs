@@ -3,15 +3,64 @@
 Created on Mon Nov 27 12:07:48 2017
 @author: jFord
 """
+from scipy.integrate import quad
 
 
 def trapez(f, a, b, n):
+    """
+    Takes as an input a function f, a lower and upper boundry a and b,
+    and a number of subdivisions (n). The function then uses the
+    composite trapezoidal rule to compute A and returns this value.
+    """
+    fa = f(a)
+    fb = f(b)
     fab = []
     h = (b - a) / n
     for x in range(0, (n)):
         fab.append(f(a + (h * x)))  # Creates a list of x(0) to x(n-1)
-    sumt = (h / 2) * (a + b + 2 * sum(fab))
+    sumt = (h / 2) * (fa + fb + 2 * sum(fab[1:]))
     return sumt
+
+
+def fef(x):
+    """
+    Function for FindError
+    """
+    return x*x
+
+
+def finderror(n):
+    """
+    Uses the trapez() function to find the error of the trapezoidal
+    integral approximation. Uses f = x*x, a = -1, b = -2, and takes
+    as an input n. The function then subtracts the numerical result
+    obtained from the trapez() from the exact integral value (i = 3)
+    and returns the difference from i
+    """
+    i = 3  # i is the exact value of the integration of x^2 between -1 and 2
+    val = trapez(fef, -1, 2, n)
+    return i - val
+
+
+def using_quad():
+    """
+    Useing the function quad from the scipy.intergrate module, returns
+    the approximation of the intergral of x^2 between -1 and 2 in the
+    form of a tuple (y, abserr) where y is the approximation and abserr
+    is the estimate of absolute error
+    """
+    return quad(fef, -1, 2)
+
+
+def std_dev(x):
+    """
+    takes a list x of floating point numbers, and
+    computes and returns the corrected sample standard
+    deviation of the floating point numbers in the list x
+    """
+    mu = (1 / len(x)) * sum(x)
+    lst = [(a - mu) ** 2 for a in x]
+    return((1 / (len(x) - 1)) * sum(lst)) ** 0.5
 
 
 def encode(code, msg):
@@ -36,6 +85,15 @@ def reverse_dic(d):
     """
     k = {v: k for k, v in d.items()}
     return k
+
+
+def decode(code, encoded_msg):
+    """
+    takes a dictionary code that contains the mapping dictionary
+    with which the string encoded_msg has been encoded.
+    The function decode should return the decoded message.
+    """
+    return encode(reverse_dic(code), encoded_msg)
 
 
 """Some support functions"""
