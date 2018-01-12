@@ -58,18 +58,13 @@ def extract_parameters(ts, Ts):
     return lst
 
 
-def sdt(Ti, Ta, c):
-    return c * math.log
-
-
 def sixty_degree_time(Ti, Ta, c):
     """
     Takes as an input Ti, Ta, and c and returns an estimate of the
     number of seconds required for the temperature of the drink to reach
     60 degrees celsius.
     """
-    fsolve(sdt, x0)
-# Below is a function for manually examining fit
+    return -c * math.log((60 - Ta) / (Ti - Ta))
 
 
 def plot(ts, Ts, Ti, Ta, c):
